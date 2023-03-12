@@ -11,8 +11,12 @@ import data from "bootstrap/js/src/dom/data";
 
 const InputSchema = Yup.object().shape({
     email: Yup.string()
-        .required("Please Enter Email!"),
+        .required("Please Enter Email!")
+    ,
+
     password: Yup.string()
+        .min(6,'Password must be at least 6 characters')
+        .max(10,'Password can not longer than 10 characters')
         .required("Please Enter Password!"),
 })
 const Login = () => {
@@ -79,9 +83,12 @@ const Login = () => {
                     <Form >
                     <span>Enter your email address</span>
                     <Field type={'text'} name={'email'} placeholder={'Please input your email : '} />
+                        <ErrorMessage name={'email'}  component="div" style={{color: "red",fontSize:"15px"}}></ErrorMessage>
                     <span>Enter your password</span>
                     <Field type={'password'} name={"password"}  placeholder={"Password"} />
-                        <button className={"btn"} >Login</button>
+                        <ErrorMessage name={'password'}  component="div" style={{color: "red",fontSize:"15px"}}></ErrorMessage>
+
+                        <button type={"submit"} className={"btn"} >Login</button>
                     <a href="#">Forget Password?</a>
                     </Form>
                     <a href="" className={"btn"}>Sign up now</a>
