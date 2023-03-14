@@ -28,8 +28,7 @@ const Login = () => {
         checkLogin(dataLogin)
     }
 
-    const checkLogin = (dataLogin) =>
-
+    const checkLogin = (dataLogin) => {
 
         if (dataLogin.payload.mess === 'Wrong username or password. Please try again') {
             Swal.fire({
