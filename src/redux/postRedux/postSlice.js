@@ -1,7 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
     createHome, editHome, removeHome,
-    showHome,
     showHomesByCategory,
     showListHome,
     showYourHomes
@@ -18,9 +17,6 @@ const homeSlice = createSlice({
     extraReducers: builder => {
         builder.addCase(showListHome.fulfilled, (state, action) => {
             state.listHome = [...action.payload]
-        })
-        builder.addCase(showHome.fulfilled, (state, action) => {
-            state.detailHome = [...action.payload]
         })
         builder.addCase(showYourHomes.fulfilled, (state, action) => {
             state.listHome = [...action.payload]

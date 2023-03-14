@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import {showListHome} from "../service/homeService";
 
 const HomeList = () => {
+    const dispatch = useDispatch()
   let dataHome = useSelector((state)=>{
       return state.post.listHome
   })
-    console.log(dataHome)
+    useEffect(() => {
+        dispatch(showListHome())
+    },[])
+
     return (
             <div className="container">
 
@@ -85,6 +90,37 @@ const HomeList = () => {
                         <input type="email" name="" id="email-box" placeholder="yourmail@gmail.com" required />
                             <input type="submit" value="Send" className="btn" />
                     </form>
+                </section>
+                <section className="properties container" id="properties">
+                    <div className="heading">
+                        <span>Recent</span>
+                        <h2>Our Featured Properties</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur <br/> adipisicing elit. Odio, laborum!</p>
+                    </div>
+                    <div className="properties-container container">
+
+                            {dataHome.map((item)=>{
+                               return (
+                                   <> <div className="box">
+                                       <img src={"img/p1.jpg"} alt=""/>
+                                       <h3>{item.price.toLocaleString()}</h3>
+                                       <div className="content">
+                                           <div className="text">
+                                               <h3>{item.name}</h3>
+                                               <p>{item.address}</p>
+                                           </div>
+                                           <div className="icon">
+                                               <i className='bx bx-bed'><span>5</span></i>
+                                               <i className='bx bx-bath'><span>2</span></i>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   </>
+                               )
+                            })}
+
+
+                    </div>
                 </section>
                 <section className="footer">
                     <div className="footer-container container">
