@@ -84,7 +84,7 @@ const Login = () => {
                         <button className={"btn"} >Login</button>
                     <a href="#">Forget Password?</a>
                     </Form>
-                    <a href="" className={"btn"}>Sign up now</a>
+                    <Link to={'user/register'} className={"btn"}>Sign up now</Link>
                 </div>
                     <div className={"login-image"}>
                         <img src={'/img/login.png'} alt="" />
