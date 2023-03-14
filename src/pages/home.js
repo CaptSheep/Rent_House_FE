@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import {showListHome} from "../service/homeService";
 
 const HomeList = () => {
+    const dispatch = useDispatch()
   let dataHome = useSelector((state)=>{
       return state.post.listHome
   })
+    useEffect(() => {
+        dispatch(showListHome())
+    },[])
     console.log(dataHome)
     return (
             <div className="container">

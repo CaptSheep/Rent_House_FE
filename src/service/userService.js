@@ -21,7 +21,7 @@ export const login = createAsyncThunk(
 export const changePassword = createAsyncThunk(
     'user/changePassword',
     async (data) => {
-        const res = await axios.post('http://localhost:8080/users/changePassword/' + data.id, data)
+        const res = await axios.post('http://localhost:8080/users/changePassword/' + data.id, data,{headers : { Authorization: 'Bearer ' + localStorage.getItem('token')}})
         return res.data
     }
 )
@@ -29,7 +29,7 @@ export const changePassword = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
     'user/updateProfile',
     async (data) => {
-        const res = await axios.post('http://localhost:8080/users/updateProfile/' +data.id, data)
+        const res = await axios.post('http://localhost:8080/users/updateProfile/' +data.id, data,{headers : { Authorization: 'Bearer ' + localStorage.getItem('token')}})
         return res.data
     }
 )
