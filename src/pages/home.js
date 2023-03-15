@@ -37,8 +37,11 @@ const HomeList = () => {
                             </Link></li>
                         </ul>
 
+                        <Link to={'/posts/create'} className={'btn'}>
+                                Create Post
+                        </Link>
                         <Link to={'/user/login'} className={'btn'}>
-                                Login
+                            Login
                         </Link>
                     </div>
 
