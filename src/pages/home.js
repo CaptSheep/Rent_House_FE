@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {showListHome} from "../service/homeService";
@@ -7,6 +6,7 @@ import {showListHome} from "../service/homeService";
 const HomeList = () => {
     const dispatch = useDispatch()
   let dataHome = useSelector((state)=>{
+
       return state.post.listHome
   })
     useEffect(() => {
@@ -25,9 +25,7 @@ const HomeList = () => {
                             <label htmlFor="menu"> <i className='bx bx-menu' id="menu-icon"></i></label>
 
                         <ul className="navbar">
-                            <li> <Link to={'/home'} className={"logo"} >
-                                <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Home</button>
-                            </Link></li>
+
                             <li> <Link to={'/about-us'} className={"logo"} >
                                 <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> About Us</button>
                             </Link></li>

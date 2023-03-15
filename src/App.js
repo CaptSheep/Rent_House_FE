@@ -5,11 +5,13 @@ import Login from "./pages/login";
 import {useSelector} from "react-redux";
 import HomeList from "./pages/home";
 import Register from "./pages/register";
+import CreatePost from "./pages/createHouse";
 function App() {
   return (
       <Routes>
         <Route path={'/user/login'} element={<Login/>}></Route>
         <Route path={'/user/register'} element={<Register/>}></Route>
+        <Route path={'/posts/create'} element={<CreatePost/>}></Route>
         <Route path={'/home'} element={<HomeList/>}></Route>
       </Routes>
   );

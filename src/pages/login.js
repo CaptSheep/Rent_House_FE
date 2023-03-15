@@ -5,7 +5,6 @@ import {Link, useNavigate} from "react-router-dom";
 import {login} from "../service/userService";
 import * as Yup from "yup";
 import './CSS/style.css'
-import data from "bootstrap/js/src/dom/data";
 
 
 const InputSchema = Yup.object().shape({
@@ -55,14 +54,25 @@ const Login = () => {
     return (
         <>
             <header>
-                <div className={"nav container"}>
-                    {/*<a href='/home' className={"logo"}><i className={'bx bx-home'}></i>Home</a>*/}
-                    <Link to={'/home'} className={"logo"}>
-                        <button className={"logo"}
-                                style={{border: "none", outline: 'none', background: "transparent"}}> Home
-                        </button>
+                <div className="nav container">
+                    <Link to={'/home'} className={"logo"} >
+                        <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Home</button>
                     </Link>
-                    {/*<a href="" className={"btn"}>Sign Up</a>*/}
+                    <input type="checkbox" name="" id="menu" />
+                    <label htmlFor="menu"> <i className='bx bx-menu' id="menu-icon"></i></label>
+
+                    <ul className="navbar">
+
+                        <li> <Link to={'/about-us'} className={"logo"} >
+                            <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> About Us</button>
+                        </Link></li>
+                        <li> <Link to={'/sale'} className={"logo"} >
+                            <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Sale</button>
+                        </Link></li>
+                        <li> <Link to={'/properties'} className={"logo"} >
+                            <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Properties</button>
+                        </Link></li>
+                    </ul>
                 </div>
 
             </header>
