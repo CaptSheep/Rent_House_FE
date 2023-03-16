@@ -82,7 +82,6 @@ const Login = () => {
                     email: "", password: ""
                 }}
                 onSubmit={(values, {resetForm}) => {
-                    console.log(values)
                     handleLogin(values)
                     resetForm()
                 }}>
