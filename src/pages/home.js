@@ -19,11 +19,9 @@ const HomeList = () => {
         dispatch(removeAccount())
         redirect('/user/login')
     }
-
     let user = useSelector((state)=>{
         return state.user.userNow
     })
-
        return(
            <>
                <div className="container">
@@ -67,7 +65,7 @@ const HomeList = () => {
                    <section className="home container" id="home">
                        <div className="home-text">
                            <h1>Find Your Next <br/>Perfect Place To <br/>Live.</h1>
-
+                           {user ? (<Link className={'btn'} to={'/posts/create'}>Create Post</Link>) : ''   }
                        </div>
                    </section>
                    <section className="about container" id="about">
