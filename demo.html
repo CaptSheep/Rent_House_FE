@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mảng</title>
+</head>
+<body>
+<button onclick="removeItem()"> Delete LocalStorage Item</button>
+<script>
+let data = prompt('Nhap : ')
+localStorage.setItem('demo',data)
+function removeItem(){
+    localStorage.removeItem('demo')
+}
+</script>
+</body>
+</html>
