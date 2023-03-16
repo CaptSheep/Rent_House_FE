@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, redirect} from "react-router-dom";
 import {showListHome} from "../service/homeService";
 import {logout} from "../service/userService";
+import {removeAccount} from "../redux/userRedux/userSlice";
 
 const HomeList = () => {
     const dispatch = useDispatch()
@@ -15,9 +16,13 @@ const HomeList = () => {
 
     const handleLogout = ()=>{
         localStorage.removeItem('token')
+        dispatch(removeAccount())
         redirect('/user/login')
     }
 
+    let user = useSelector((state)=>{
+        return state.user.userNow
+    })
 
        return(
            <>
@@ -44,12 +49,17 @@ const HomeList = () => {
                                </Link></li>
                            </ul>
 
-                           <Link onClick={()=>{
-                              handleLogout()
+                           {user ? (  <Link onClick={()=>{
+                               handleLogout()
                            }}
-                               to={'/user/login'} className={'btn'}>
+                                            to={'/user/login'} className={'btn'}>
                                Logout
-                           </Link>
+                           </Link>) : (  <Link onClick={()=>{
+                               handleLogout()
+                           }}
+                                               to={'/user/login'} className={'btn'}>
+                               Login
+                           </Link>)}
 
                        </div>
 
@@ -57,9 +67,7 @@ const HomeList = () => {
                    <section className="home container" id="home">
                        <div className="home-text">
                            <h1>Find Your Next <br/>Perfect Place To <br/>Live.</h1>
-                           <Link to={'/posts/create'} className={'btn'}>
-                               Create Post
-                           </Link>
+
                        </div>
                    </section>
                    <section className="about container" id="about">

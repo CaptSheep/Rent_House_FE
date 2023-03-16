@@ -8,6 +8,12 @@ const initialState = {
 const userSlice = createSlice({
     name: 'user',
     initialState,
+    reducers : {
+        removeAccount: (state)=>{
+            state.userNow = null
+        }
+
+    },
     extraReducers: builder => {
         builder.addCase(login.fulfilled, (state, action) => {
             state.userNow = action.payload
@@ -27,4 +33,5 @@ const userSlice = createSlice({
         })
     }
 })
+export const {removeAccount} = userSlice.actions
 export default userSlice.reducer

@@ -14,10 +14,13 @@ const initialState = {
 const homeSlice = createSlice({
     name: 'home',
     initialState,
+
     extraReducers: builder => {
         builder.addCase(showListHome.fulfilled, (state, action) => {
+            console.log(action)
             state.listHome = [...action.payload]
         })
+
         builder.addCase(showYourHomes.fulfilled, (state, action) => {
             state.listHome = [...action.payload]
         })
