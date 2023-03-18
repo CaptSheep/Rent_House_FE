@@ -117,8 +117,8 @@ const Login = () => {
                                            data-target="#fingerprintModal">Use Fingerprint</a>
                                     </div>
                                     <div className="col-md-12 text-center mt-5">
-                                    <span className="go-login">Not yet a member? <a
-                                        href="sign-up.html">Sign Up</a></span>
+                                    <span className="go-login">Not yet a member? <Link
+                                        to={'/user/register'}>Sign Up</Link></span>
                                     </div>
                                 </div>
                             </Form>
@@ -126,11 +126,11 @@ const Login = () => {
 
                     </div>
                 </div>
-                <div className="col-md-6  d-flex justify-content-center align-items-center " style={{backgroundImage :  `url(require("/assets/images/background/auth-bg.png"))`}} >
-                    <div className="auth-left-content mt-5 mb-5 text-center">
-                        <div className="weather-small text-white">
+                <div className="col-md-6  d-flex justify-content-center align-items-center "  >
+
+                    <div className="auth-left-content mt-5 mb-5 text-center" >
+                        <div className="weather-small text-white" >
                             <p className="current-weather"><i className='bx bx-sun'></i> <span>14&deg;</span></p>
-                            <p className="weather-city">Gyumri</p>
                         </div>
                         <div className="text-white mt-5 mb-5">
                             <h2 className="create-account mb-3">Welcome Back</h2>

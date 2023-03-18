@@ -73,29 +73,7 @@ const Register = () => {
     }
     return (
         <>
-            <header>
-                <div className="nav container">
-                    <Link to={'/home'} className={"logo"} >
-                        <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Home</button>
-                    </Link>
-                    <input type="checkbox" name="" id="menu" />
-                    <label htmlFor="menu"> <i className='bx bx-menu' id="menu-icon"></i></label>
 
-                    <ul className="navbar">
-                        <li> <Link to={'/about-us'} className={"logo"} >
-                            <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> About Us</button>
-                        </Link></li>
-                        <li> <Link to={'/sale'} className={"logo"} >
-                            <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Sale</button>
-                        </Link></li>
-                        <li> <Link to={'/properties'} className={"logo"} >
-                            <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Properties</button>
-                        </Link></li>
-                    </ul>
-
-                </div>
-
-            </header>
             <Formik
                 validationSchema={InputSchema}
                 initialValues={{
@@ -103,48 +81,114 @@ const Register = () => {
                     fullName: ''
                 }}
                 onSubmit={(values, {resetForm}) => {
-                    handleRegister(values)
+                    // handleRegister(values)
+                    console.log(values)
                     resetForm()
                 }}
             >
-                <div className="login container">
-                    <div className="login-container">
-                        <h2>Welcome , Let's get started</h2>
-                        <Form>
-                            <span>User Name</span>
-                            <Field type={"text"} name="userName" placeholder={"Your User Name"}/>
-                            <ErrorMessage name={'userName'} component="div"
-                                          style={{color: "red", fontSize: "15px"}}/>
-                            <span>Full Name</span>
-                            <Field type={"text"} name="fullName" placeholder={"Your Full Name"}/>
-                            <ErrorMessage name={'fullName'} component="div"
-                                          style={{color: "red", fontSize: "15px"}}/>
-                            <span>Address</span>
-                            <Field type={"text"} name="address" placeholder={"Your Address"}/>
-                            <ErrorMessage name={'address'} component="div"
-                                          style={{color: "red", fontSize: "15px"}}/>
-                            <span>Enter your email address</span>
-                            <Field type={"email"} name="email" placeholder={"yourmail@gmail.com"}/>
-                            <ErrorMessage name={'email'} component="div"
-                                          style={{color: "red", fontSize: "15px"}}/>
-                            <span>Phone</span>
-                            <Field type={'text'} name="phoneNumber" placeholder={"Enter your number"}/>
-                            <ErrorMessage name={'phoneNumber'} component="div"
-                                          style={{color: "red", fontSize: "15px"}}/>
-                            <span>Password</span>
-                            <Field type={"password"} placeholder={'Enter your password'} name="password"/>
-                            <ErrorMessage name={'password'} component="div"
-                                          style={{color: "red", fontSize: "15px"}}/>
-                            <span>Confirm Password</span>
-                            <Field type={"password"} name="confirmPassword" placeholder={"Enter Confirm Password"}/>
-                            <ErrorMessage name={'confirmPassword'} component="div"
-                                          style={{color: "red", fontSize: "15px"}}/>
-                            <button type={"submit"} className={"btn"}>Register</button>
-                        </Form>
-                        <Link to={'/user/login'} className={"btn"}>Already have account</Link>
+                <div className="row ht-100v flex-row-reverse no-gutters">
+                    <div className="col-md-6 d-flex justify-content-center align-items-center">
+                        <div className="signup-form">
+                            <div className="auth-logo text-center mb-5">
+                                <div className="row">
+                                    <div className="col-md-2">
+                                        <img src="./assets/images/logo-64x64.png" className="logo-img" alt="Logo"/>
+                                    </div>
+                                    <div className="col-md-10">
+                                        <p>Argon Social Network</p>
+                                        <span>Design System</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <Form className="pt-5">
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <Field type="text" className="form-control" name="fullName"
+                                                   placeholder="Full Name"/>
+                                            <ErrorMessage name={'fullName'} component="div"
+                                                          style={{color: "red", fontSize: "15px"}}/>
+
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <Field type="text" className="form-control" name="userName" placeholder="User Name"/>
+                                            <ErrorMessage name={'userName'} component="div"
+                                                          style={{color: "red", fontSize: "15px"}}/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <Field type="text" className="form-control" name="email"
+                                                   placeholder="Email Address"/>
+                                            <ErrorMessage name={'email'} component="div"
+                                                          style={{color: "red", fontSize: "15px"}}/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <Field type="text" className="form-control" name="phoneNumber"
+                                                   placeholder="Phone Number"/>
+                                            <ErrorMessage name={'phoneNumber'} component="div"
+                                                          style={{color: "red", fontSize: "15px"}}/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <Field type="text" className="form-control" name="address"
+                                                   placeholder="Address"/>
+                                            <ErrorMessage name={'address'} component="div"
+                                                          style={{color: "red", fontSize: "15px"}}/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <Field type="password" className="form-control" name="password"
+                                                   placeholder="Password"/>
+                                            <ErrorMessage name={'password'} component="div"
+                                                          style={{color: "red", fontSize: "15px"}}/>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <Field type="password" className="form-control" name="confirmPassword"
+                                                   placeholder="Confirm Password"/>
+                                            <ErrorMessage name={'confirmPassword'} component="div"
+                                                          style={{color: "red", fontSize: "15px"}}/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <p className="agree-privacy">By clicking the Sign Up button below you agreed to
+                                            our privacy policy and terms of use of our website.</p>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <span className="go-login">Already a member? <Link to={'/user/login'}>Sign In</Link></span>
+                                    </div>
+                                    <div className="col-md-6 text-right">
+                                        <div className="form-group">
+                                            <button type={'submit'} className="btn btn-primary sign-up">Sign Up</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Form>
+                        </div>
                     </div>
-                    <div className={"login-image"}>
-                        <img src={'/img/sign-up.png'} alt=""/>
+                    <div className="col-md-6 auth-bg-image d-flex justify-content-center align-items-center">
+                        <div className="auth-left-content mt-5 mb-5 text-center">
+                            <div className="weather-small text-white">
+                                <p className="current-weather"><i className='bx bx-sun'></i> <span>14&deg;</span></p>
+                                <p className="weather-city">Gyumri</p>
+                            </div>
+                            <div className="text-white mt-5 mb-5">
+                                <h2 className="create-account mb-3">Create Account</h2>
+                                <p>Enter your personal details and start journey with us.</p>
+                            </div>
+                            <div className="auth-quick-links">
+                                <a href="#" className="btn btn-outline-primary">Purchase template</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
