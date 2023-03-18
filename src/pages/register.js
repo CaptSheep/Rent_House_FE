@@ -91,11 +91,11 @@ const Register = () => {
                         <div className="signup-form">
                             <div className="auth-logo text-center mb-5">
                                 <div className="row">
-                                    <div className="col-md-2">
+                                    <Link to={'/home'}>
                                         <img src="./assets/images/logo-64x64.png" className="logo-img" alt="Logo"/>
-                                    </div>
+                                    </Link>
                                     <div className="col-md-10">
-                                        <p>Argon Social Network</p>
+                                        <p>Jackie's Rent House</p>
                                         <span>Design System</span>
                                     </div>
                                 </div>

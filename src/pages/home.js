@@ -28,6 +28,7 @@ const HomeList = () => {
     let user = useSelector((state) => {
         return state.user.userNow
     })
+    console.log(user)
     return (
         <>
 
@@ -54,10 +55,17 @@ const HomeList = () => {
                                                             <a href="#"><i className="fa fa-phone-square"></i>Call Us -
                                                                 01623 030020</a>
                                                         </li>
-                                                        <li>
-                                                            <Link to={"/user/login"} className="cd-signin"><i
-                                                                className="fa fa-address-book"></i>Login / Register</Link>
-                                                        </li>
+                                                        {/*<li>*/}
+                                                        {user ? (
+                                                            <li><Link onClick={() => {
+                                                                handleLogout()
+                                                            }} to={"/user/logout"} className="cd-signin"><i
+                                                                className="fa fa-address-book"></i>Logout</Link>
+                                                            </li>) : (
+                                                            <li><Link to={"/user/login"} className="cd-signin"><i
+                                                                className="fa fa-address-book"></i>Login /
+                                                                Register</Link></li>)}
+                                                        {/*</li>*/}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -100,10 +108,20 @@ const HomeList = () => {
                                         <li>
                                             <a href="#"><i className="fa fa-phone-square"></i>Call Us - 01623 030020</a>
                                         </li>
-                                        <li>
-                                            <Link to={'/user/login'} className="cd-signin"><i className="fa fa-address-book"></i>Login
-                                                / Register</Link>
-                                        </li>
+                                        {/*<li>*/}
+                                        {/*    <Link to={'/user/login'} className="cd-signin"><i*/}
+                                        {/*        className="fa fa-address-book"></i>Login*/}
+                                        {/*        / Register</Link>*/}
+                                        {/*</li>*/}
+                                        {user ? (
+                                            <li><Link onClick={() => {
+                                                handleLogout()
+                                            }} to={"/user/login"} className="cd-signin"><i
+                                                className="fa fa-address-book"></i>Logout</Link>
+                                            </li>) : (
+                                            <li><Link to={"/user/login"} className="cd-signin"><i
+                                                className="fa fa-address-book"></i>Login /
+                                                Register</Link></li>)}
                                         <li>
                                             <a href="#" className="main-search"><i className="fa fa-search"></i></a>
                                         </li>
@@ -733,8 +751,9 @@ const HomeList = () => {
                         <div className="col-md-4 col-sm-6 col-xs-6">
                             <div className="apartments-content">
                                 <div className="image-content">
-                                    <a href="apartment-single.html"><img src="/assets/images/apartment/apartment-one.png"
-                                                                         alt="apartment"/></a>
+                                    <a href="apartment-single.html"><img
+                                        src="/assets/images/apartment/apartment-one.png"
+                                        alt="apartment"/></a>
                                 </div>
 
                                 <div className="text-content">
@@ -789,8 +808,9 @@ const HomeList = () => {
                         <div className="col-md-4 col-sm-6 col-xs-6">
                             <div className="apartments-content">
                                 <div className="image-content">
-                                    <a href="apartment-single.html"><img src="/assets/images/apartment/apartment-two.png"
-                                                                         alt="apartment"/></a>
+                                    <a href="apartment-single.html"><img
+                                        src="/assets/images/apartment/apartment-two.png"
+                                        alt="apartment"/></a>
                                 </div>
 
                                 <div className="text-content">
@@ -1016,8 +1036,9 @@ const HomeList = () => {
                         <div className="col-md-4 col-sm-6 col-xs-6">
                             <div className="apartments-content">
                                 <div className="image-content">
-                                    <a href="apartment-single.html"><img src="/assets/images/apartment/apartment-six.png"
-                                                                         alt="apartment"/></a>
+                                    <a href="apartment-single.html"><img
+                                        src="/assets/images/apartment/apartment-six.png"
+                                        alt="apartment"/></a>
                                 </div>
                                 <div className="text-content">
                                     <div className="top-content">
@@ -1165,7 +1186,8 @@ const HomeList = () => {
                 </div>
             </div>
 
-            <div className="call-to-action overlay-bg" style={{backgroundImage: `url(/assets/images/contact-bg-image.png)`}}>
+            <div className="call-to-action overlay-bg"
+                 style={{backgroundImage: `url(/assets/images/contact-bg-image.png)`}}>
                 <div className="container">
                     <div className="row tb">
                         <div className="col-md-6 col-sm-6 tb-cell">
