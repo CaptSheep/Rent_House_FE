@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {createHome} from "../service/homeService";
 import * as Yup from "yup";
-import './CSS/style.css'
+// import './CSS/style.css'
 import {
     ref, getDownloadURL, uploadBytesResumable
 } from "firebase/storage";
