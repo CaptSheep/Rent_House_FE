@@ -5,13 +5,11 @@
     <title>Mảng</title>
 </head>
 <body>
-<button onclick="removeItem()"> Delete LocalStorage Item</button>
 <script>
-let data = prompt('Nhap : ')
-localStorage.setItem('demo',data)
-function removeItem(){
-    localStorage.removeItem('demo')
-}
+let arr = [3,4,5,6,7,8]
+arr.splice(1,1,10)
+console.log(arr)
+
 </script>
 </body>
 </html>

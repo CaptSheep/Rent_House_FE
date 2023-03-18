@@ -2,7 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Home-rent" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/HouseRent-Template" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/argon-social" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/rent_home" vcs="Git" />
   </component>
 </project>

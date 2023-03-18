@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {register} from "../service/userService";
 import * as Yup from "yup";
-import './CSS/style.css'
+// import './CSS/style.css'
 
 
 const InputSchema = Yup.object().shape({

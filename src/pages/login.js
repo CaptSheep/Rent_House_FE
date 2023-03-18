@@ -4,7 +4,10 @@ import {useDispatch} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {login} from "../service/userService";
 import * as Yup from "yup";
-import './CSS/style.css'
+
+import WrapLogin from "./layouts/wrapLogin";
+import * as url from "url";
+
 
 
 const InputSchema = Yup.object().shape({
@@ -53,64 +56,92 @@ const Login = () => {
     }
     return (
         <>
-            <header>
-                <div className="nav container">
-                    <Link to={'/home'} className={"logo"} >
-                        <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Home</button>
-                    </Link>
-                    <input type="checkbox" name="" id="menu" />
-                    <label htmlFor="menu"> <i className='bx bx-menu' id="menu-icon"></i></label>
+            <div className="row ht-100v flex-row-reverse no-gutters">
+                <div className="col-md-6 d-flex justify-content-center align-items-center">
+                    <div className="signup-form">
+                        <div className="auth-logo text-center mb-5">
+                            <div className="row">
+                                <div className="col-md-2">
+                                    <img src="./assets/images/logo-64x64.png" className="logo-img" alt="Logo"/>
+                                </div>
+                                <div className="col-md-10">
+                                    <p>Argon Social Network</p>
+                                    <span>Design System</span>
+                                </div>
+                            </div>
+                        </div>
+                        <Formik
+                            validationSchema={InputSchema}
+                            initialValues={{
+                                email: "", password: ""
+                            }}
+                            onSubmit={(values, {resetForm}) => {
+                                handleLogin(values)
+                                resetForm()
+                            }}
+                        >
+                            <Form>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <Field type={"text"} className={"form-control"} name={"email"} placeholder={"Email Address"}/>
+                                            <ErrorMessage name={'email'} component="div"
+                                                          style={{color: "red", fontSize: "15px"}}></ErrorMessage>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <Field type={"password"} placeholder={'Enter your password'} name="password" className={"form-control"}/>
+                                            <ErrorMessage name={'password'} component="div"
+                                                          style={{color: "red", fontSize: "15px"}}></ErrorMessage>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12 mb-3">
+                                        <a href="forgot-password.html">Forgot password?</a>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <label className="custom-control material-checkbox">
+                                            <Field type="checkbox" className="material-control-input"/>
+                                            <span className="material-control-indicator"></span>
+                                            <span className="material-control-description">Remember Me</span>
+                                        </label>
+                                    </div>
+                                    <div className="col-md-6 text-right">
+                                        <div className="form-group">
+                                            <button type={'submit'} className={"btn btn-primary sign-up"}>Sign In</button>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12 text-center mt-4">
+                                        <p className="text-muted">Start using your fingerprint</p>
+                                        <a href="#" className="btn btn-outline-primary btn-sm sign-up" data-toggle="modal"
+                                           data-target="#fingerprintModal">Use Fingerprint</a>
+                                    </div>
+                                    <div className="col-md-12 text-center mt-5">
+                                    <span className="go-login">Not yet a member? <a
+                                        href="sign-up.html">Sign Up</a></span>
+                                    </div>
+                                </div>
+                            </Form>
+                        </Formik>
 
-                    <ul className="navbar">
-
-                        <li> <Link to={'/about-us'} className={"logo"} >
-                            <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> About Us</button>
-                        </Link></li>
-                        <li> <Link to={'/sale'} className={"logo"} >
-                            <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Sale</button>
-                        </Link></li>
-                        <li> <Link to={'/properties'} className={"logo"} >
-                            <button className={"logo"} style={{border: "none" , outline: 'none', background : "transparent"}}> Properties</button>
-                        </Link></li>
-                    </ul>
-                </div>
-
-            </header>
-            <Formik
-                validationSchema={InputSchema}
-                initialValues={{
-                    email: "", password: ""
-                }}
-                onSubmit={(values, {resetForm}) => {
-                    handleLogin(values)
-                    resetForm()
-                }}>
-
-                <div className={"login container"}>
-                    <div className={"login-container"}>
-                        <h2>Login To Continue</h2>
-                        <p>Log in with your data that you entered<br/> during your registration</p>
-                        <Form>
-                            <span>Enter your email address</span>
-                            <Field type={'text'} name={'email'} placeholder={'Please input your email : '}/>
-                            <ErrorMessage name={'email'} component="div"
-                                          style={{color: "red", fontSize: "15px"}}></ErrorMessage>
-                            <span>Enter your password</span>
-                            <Field type={'password'} name={"password"} placeholder={"Password"}/>
-                            <ErrorMessage name={'password'} component="div"
-                                          style={{color: "red", fontSize: "15px"}}></ErrorMessage>
-                            <button type={"submit"} className={"btn"}>Login</button>
-                            <a href="#">Forget Password?</a>
-                        </Form>
-                        <Link to={'/user/register'} className={"btn"}>Sign up now</Link>
                     </div>
-                    <div className={"login-image"}>
-                        <img src={'/img/login.png'} alt=""/>
+                </div>
+                <div className="col-md-6  d-flex justify-content-center align-items-center " style={{backgroundImage :  `url(require("/assets/images/background/auth-bg.png"))`}} >
+                    <div className="auth-left-content mt-5 mb-5 text-center">
+                        <div className="weather-small text-white">
+                            <p className="current-weather"><i className='bx bx-sun'></i> <span>14&deg;</span></p>
+                            <p className="weather-city">Gyumri</p>
+                        </div>
+                        <div className="text-white mt-5 mb-5">
+                            <h2 className="create-account mb-3">Welcome Back</h2>
+                            <p>Thank you for joining. Updates and new features are released daily.</p>
+                        </div>
+                        <div className="auth-quick-links">
+                            <a href="#" className="btn btn-outline-primary">Purchase template</a>
+                        </div>
                     </div>
                 </div>
-            </Formik>
-
-        </>
-    )
+            </div>
+    </>)
 }
 export default Login;
