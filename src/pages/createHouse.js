@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
@@ -9,6 +9,8 @@ import {
     ref, getDownloadURL, uploadBytesResumable
 } from "firebase/storage";
 import {storage} from "./firebase/config";
+import {showCategories} from "../service/categoryService";
+
 
 const InputSchema = Yup.object().shape({
     name: Yup.string()
@@ -20,15 +22,17 @@ const InputSchema = Yup.object().shape({
         .required("Please Enter Price!"),
     description: Yup.string()
         .required("Please Enter Description!"),
-    categoryId: Yup.number()
-        .required("Please Enter Category!"),
-    bedroom: Yup.number()
+    categoryId: Yup.string()
+        .required("Please Chose Category!"),
+    bedroom: Yup.string()
         .required("Please Enter Bedroom!"),
-    bathroom: Yup.number()
+    bathroom: Yup.string()
         .required("Please Enter Bathroom!"),
 })
 
 const CreatePost = () => {
+
+
     const [images, setImages] = useState([]);
     const [urls, setUrls] = useState([]);
     const [progress, setProgress] = useState(0);
@@ -37,11 +41,17 @@ const CreatePost = () => {
     const userId = useSelector(state => {
         return state.user.userNow.userInfo.id
     })
+
+    useEffect((state) => {
+        dispatch(showCategories())
+    })
+
+
     const handleSubmit = async (values) => {
         let avatar = urls[0]
-        let data = {...values, avatar}
-         await dispatch(createHome(data))
+        let data = {...values, 'avatar': avatar}
         console.log(data)
+        await dispatch(createHome(data))
         // navigate('/home')
     }
 
@@ -51,6 +61,7 @@ const CreatePost = () => {
             newImage["id"] = Math.random();
             setImages((prevState) => [...prevState, newImage]);
         }
+
     };
 
     const handleUpload = () => {
@@ -83,39 +94,11 @@ const CreatePost = () => {
 
 
     }
+
+
     return (
         <>
-            <header>
-                <div className="nav container">
-                    <Link to={'/home'} className={"logo"}>
-                        <button className={"logo"}
-                                style={{border: "none", outline: 'none', background: "transparent"}}> Home
-                        </button>
-                    </Link>
-                    <input type="checkbox" name="" id="menu"/>
-                    <label htmlFor="menu"> <i className='bx bx-menu' id="menu-icon"></i></label>
 
-                    <ul className="navbar">
-
-                        <li><Link to={'/about-us'} className={"logo"}>
-                            <button className={"logo"}
-                                    style={{border: "none", outline: 'none', background: "transparent"}}> About Us
-                            </button>
-                        </Link></li>
-                        <li><Link to={'/sale'} className={"logo"}>
-                            <button className={"logo"}
-                                    style={{border: "none", outline: 'none', background: "transparent"}}> Sale
-                            </button>
-                        </Link></li>
-                        <li><Link to={'/properties'} className={"logo"}>
-                            <button className={"logo"}
-                                    style={{border: "none", outline: 'none', background: "transparent"}}> Properties
-                            </button>
-                        </Link></li>
-                    </ul>
-                </div>
-
-            </header>
             <Formik validationSchema={InputSchema} initialValues={{
                 name: '',
                 address: '',
@@ -124,75 +107,140 @@ const CreatePost = () => {
                 categoryId: '',
                 bedroom: '',
                 bathroom: '',
+                avatar: '',
                 userId: userId
             }} onSubmit={(values) => handleSubmit(values)
             }>
-                <div className="login container">
-                    <div className="login-container">
-                        <Form id="createPost" tabIndex="500">
-                            <h3 style={{color: "#dc3545"}}>Create Post Rent Home</h3>
-                            <label>Name</label>
-                            <Field type="text" name="name" style={{borderRadius: "10px"}}/>
-                            <ErrorMessage name="name" component="div"
-                                          style={{color: "red", fontSize: "10px"}}></ErrorMessage>
-                            <label>Address</label>
-                            <Field type="text" name="address" style={{borderRadius: "10px"}}/>
-                            <ErrorMessage name="address" component="div"
-                                          style={{color: "red", fontSize: "10px"}}></ErrorMessage>
-                            <label>Price</label>
-                            <Field type="number" name="price" style={{borderRadius: "10px"}}/>
-                            <ErrorMessage name="price" component="div"
-                                          style={{color: "red", fontSize: "10px"}}></ErrorMessage>
-                            <label>Description</label>
-                            <Field style={{height: "200px", borderRadius: "10px"}} name="description"/>
-                            <ErrorMessage name="description" component="div"
-                                          style={{color: "red", fontSize: "10px"}}></ErrorMessage>
-                            <label>Category</label>
-                            <Field as={"select"} name={"categoryId"} style={{borderRadius: "10px"}}>
-                                <option value="">Category</option>
-                                <option value="1">House</option>
-                                <option value="2">Homestay</option>
-                                <option value="3">Hotel</option>
-                            </Field>
-                            <ErrorMessage name="categoryId" component="div"
-                                          style={{color: "red", fontSize: "10px"}}></ErrorMessage>
-                            <label>Bedroom</label>
+                {(props) => {
 
-                            <Field as={"select"} name={"bedroom"} style={{borderRadius: "10px"}}>
-                                <option value="">Bedroom</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </Field>
-                            <label>Bathroom</label>
-                            <ErrorMessage name="bedroom" component="div"
-                                          style={{color: "red", fontSize: "10px"}}></ErrorMessage>
-                            <Field as={"select"} name={"bathroom"} style={{borderRadius: "10px"}}>
-                                <option value="">Bathroom</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </Field>
-                            <ErrorMessage name="bathroom" component="div"
-                                          style={{color: "red", fontSize: "10px"}}></ErrorMessage>
+                    return (
+                        <div className="row ht-100v flex-row-reverse no-gutters">
+                            <div className="col-md-6 d-flex justify-content-center align-items-center">
+                                <div className="signup-form">
+                                    <div className="auth-logo text-center mb-5">
+                                        <div className="row">
+                                            <Link to={'/home'}>
+                                                <img src="./assets/images/logo-64x64.png" className="logo-img"
+                                                     alt="Logo"/>
+                                            </Link>
+                                            <div className="col-md-10">
+                                                <p>Jackie's Rent House</p>
+                                                <span>Design System</span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            <label>Image</label>
-                            <input type="file" multiple onChange={handleChange}/>
-                            <button onClick={()=>{
-                                dispatch(handleUpload)
-                            }}>Upload Image</button>
 
-                            <button type={"submit"} className={"btn"}>Create Home</button>
+                                    <Form className="pt-5">
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <Field type="text" className="form-control" name="name"
+                                                           placeholder="Room Name"/>
+                                                    <ErrorMessage name={'name'} component="div"
+                                                                  style={{color: "red", fontSize: "15px"}}/>
 
-                        </Form>
-                        <Link to={'/user/login'} className={"btn"}>Already have account</Link>
-                    </div>
-                    <div className={"login-image"}>
-                        <img src={'/img/sign-up.png'} alt=""/>
-                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <Field type="text" className="form-control" name="address"
+                                                           placeholder="Home Address"/>
+                                                    <ErrorMessage name={'address'} component="div"
+                                                                  style={{color: "red", fontSize: "15px"}}/>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group">
+                                                    <Field type="text" className="form-control" name="price"
+                                                           placeholder="Home Price"/>
+                                                    <ErrorMessage name={'price'} component="div"
+                                                                  style={{color: "red", fontSize: "15px"}}/>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group">
+                                                    <Field type="text" className="form-control" name="description"
+                                                           placeholder="Home Description"/>
+                                                    <ErrorMessage name={'description'} component="div"
+                                                                  style={{color: "red", fontSize: "15px"}}/>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label>
+                                                        <Field component={'select'} className={'form-control'}
+                                                               name={'categoryId'} id={'categoryId'}
+                                                               onChange={(e) => {
+                                                                   props.setFieldValue('categoryId', e.target.value)
+                                                               }}
+                                                        >
+                                                            <option>Category ID</option>
+                                                            <option value={"1"}>1</option>
+                                                            <option value={"2"}>2</option>
+                                                            <option value={"3"}>3</option>
+                                                        </Field>
+                                                    </label>
 
-                </div>
+                                                    <ErrorMessage name={'categoryId'} component="div"
+                                                                  style={{color: "red", fontSize: "15px"}}/>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <Field type="text" className="form-control" name="bedroom"
+                                                           placeholder="Number of Bedroom"/>
+                                                    <ErrorMessage name={'password'} component="div"
+                                                                  style={{color: "red", fontSize: "15px"}}/>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <Field type="text" className="form-control" name="bathroom"
+                                                           placeholder="Number of Bathroom"/>
+                                                    <ErrorMessage name={'bathroom'} component="div"
+                                                                  style={{color: "red", fontSize: "15px"}}/>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6 text-right">
+                                                <Field type="file" multiple onChange={handleChange} name={'avatar'}/>
+                                                <button type={'button'} className={"btn btn-primary sign-up"} onClick={()=>{
+                                                    dispatch(handleUpload)
+                                                    props.setFieldValue('avatar',urls[0])
+                                                }}>Upload Image</button>
+                                                <button onClick={() => {
+                                                }} type={"submit"} className={"btn btn-primary sign-up"}>Create Home
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </Form>
+
+                                </div>
+                            </div>
+                            <div className="col-md-6 auth-bg-image d-flex justify-content-center align-items-center">
+                                <div className="auth-left-content mt-5 mb-5 text-center">
+                                    <div className="weather-small text-white">
+                                        <p className="current-weather"><i className='bx bx-sun'></i>
+                                            <span>14&deg;</span></p>
+                                        <p className="weather-city">Gyumri</p>
+                                    </div>
+                                    <div className="text-white mt-5 mb-5">
+                                        <h2 className="create-account mb-3">Create Home</h2>
+                                        <p>Enter your personal details and start journey with us.</p>
+                                    </div>
+                                    <div className="auth-quick-links">
+                                        <a href="#" className="btn btn-outline-primary">Purchase template</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }}
+
             </Formik>
+
 
         </>
     )

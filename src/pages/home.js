@@ -7,9 +7,10 @@ import {removeAccount} from "../redux/userRedux/userSlice";
 import {Helmet} from "react-helmet";
 import * as Yup from "yup";
 import login from "./login";
+import {showCategories} from "../service/categoryService";
 
 
-const HomeList = () => {
+const HomePage = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -18,7 +19,10 @@ const HomeList = () => {
     })
     useEffect(() => {
         dispatch(showListHome())
+        dispatch(showCategories())
     }, [])
+
+
 
     const handleLogout = () => {
         localStorage.removeItem('token')
@@ -28,7 +32,11 @@ const HomeList = () => {
     let user = useSelector((state) => {
         return state.user.userNow
     })
-    console.log(user)
+
+    let category = useSelector((state)=>{
+        return state.category.listCategory
+    })
+
     return (
         <>
 
@@ -55,7 +63,6 @@ const HomeList = () => {
                                                             <a href="#"><i className="fa fa-phone-square"></i>Call Us -
                                                                 01623 030020</a>
                                                         </li>
-                                                        {/*<li>*/}
                                                         {user ? (
                                                             <li><Link onClick={() => {
                                                                 handleLogout()
@@ -65,7 +72,6 @@ const HomeList = () => {
                                                             <li><Link to={"/user/login"} className="cd-signin"><i
                                                                 className="fa fa-address-book"></i>Login /
                                                                 Register</Link></li>)}
-                                                        {/*</li>*/}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -108,11 +114,7 @@ const HomeList = () => {
                                         <li>
                                             <a href="#"><i className="fa fa-phone-square"></i>Call Us - 01623 030020</a>
                                         </li>
-                                        {/*<li>*/}
-                                        {/*    <Link to={'/user/login'} className="cd-signin"><i*/}
-                                        {/*        className="fa fa-address-book"></i>Login*/}
-                                        {/*        / Register</Link>*/}
-                                        {/*</li>*/}
+
                                         {user ? (
                                             <li><Link onClick={() => {
                                                 handleLogout()
@@ -145,42 +147,13 @@ const HomeList = () => {
                                     <div className="menu-content">
                                         <ul className="menu-list">
                                             <li>
-                                                <a href="#">Home</a>
-                                                <ul className="sub-menu">
-                                                    <li>
-                                                        <a href="index-2.html">Home Layout One</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index02.html">Home Layout Two</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index03.html">Home Layout Three</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index04.html">Home Layout Four</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index05.html">Home Layout Five</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index06.html">Home Layout Six</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index07.html">Home Layout Seven</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index08.html">Home Layout Eight</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
                                                 <a href="booking.html">Booking</a>
                                             </li>
                                             <li>
                                                 <a href="#">House</a>
                                                 <ul className="sub-menu">
                                                     <li>
-                                                        <a href="apartment.html">All Apartment</a>
+                                                        <Link to={'/listHome'}>All Apartment</Link>
                                                     </li>
                                                     <li>
                                                         <a href="apartment-single.html">Apartment Single</a>
@@ -305,107 +278,7 @@ const HomeList = () => {
                     </div>
                 </div>
 
-                <div className="cd-user-modal">
-                    <div className="cd-user-modal-container">
-                        <ul className="cd-switcher">
-                            <li><a href="#0">Sign in</a></li>
-                            <li><a href="#0">New account</a></li>
-                        </ul>
 
-                        <div id="cd-login">
-                            <form className="cd-form">
-                                <p className="fieldset">
-                                    <label className="image-replace cd-email" htmlFor="signin-email">E-mail</label>
-                                    <input className="full-width has-padding has-border" id="signin-email" type="email"
-                                           placeholder="E-mail"/>
-                                    <span className="cd-error-message">Error message here!</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <label className="image-replace cd-password"
-                                           htmlFor="signin-password">Password</label>
-                                    <input className="full-width has-padding has-border" id="signin-password"
-                                           type="text" placeholder="Password"/>
-                                    <a href="#0" className="hide-password">Hide</a>
-                                    <span className="cd-error-message">Error message here!</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <input type="checkbox" id="remember-me"/>
-                                    <label htmlFor="remember-me">Remember me</label>
-                                </p>
-
-                                <p className="fieldset">
-                                    <input className="full-width" type="submit" value="Login"/>
-                                </p>
-                            </form>
-
-                            <p className="cd-form-bottom-message">
-                                <a href="#0">Forgot your password?</a>
-                            </p>
-                            <a href="#0" className="cd-close-form">Close</a>
-                        </div>
-
-                        <div id="cd-signup">
-                            <form className="cd-form">
-                                <p className="fieldset">
-                                    <label className="image-replace cd-username"
-                                           htmlFor="signup-username">Username</label>
-                                    <input className="full-width has-padding has-border" id="signup-username"
-                                           type="text" placeholder="Username"/>
-                                    <span className="cd-error-message">Error message here!</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <label className="image-replace cd-email" htmlFor="signup-email">E-mail</label>
-                                    <input className="full-width has-padding has-border" id="signup-email" type="email"
-                                           placeholder="E-mail"/>
-                                    <span className="cd-error-message">Error message here!</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <label className="image-replace cd-password"
-                                           htmlFor="signup-password">Password</label>
-                                    <input className="full-width has-padding has-border" id="signup-password"
-                                           type="text" placeholder="Password"/>
-                                    <a href="#0" className="hide-password">Hide</a>
-                                    <span className="cd-error-message">Error message here!</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <input type="checkbox" id="accept-terms"/>
-                                    <label htmlFor="accept-terms">I agree to the <a href="#0">Terms</a></label>
-                                </p>
-
-                                <p className="fieldset">
-                                    <input className="full-width has-padding" type="submit" value="Create account"/>
-                                </p>
-                            </form>
-
-                            <a href="#0" className="cd-close-form">Close</a>
-                        </div>
-
-                        <div id="cd-reset-password">
-                            <p className="cd-form-message">Lost your password? Please enter your email address. You will
-                                receive a link to create a new password.</p>
-
-                            <form className="cd-form">
-                                <p className="fieldset">
-                                    <label className="image-replace cd-email" htmlFor="reset-email">E-mail</label>
-                                    <input className="full-width has-padding has-border" id="reset-email" type="email"
-                                           placeholder="E-mail"/>
-                                    <span className="cd-error-message">Error message here!</span>
-                                </p>
-                                <p className="fieldset">
-                                    <input className="full-width has-padding" type="submit" value="Reset password"/>
-                                </p>
-                            </form>
-
-                            <p className="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
-                        </div>
-                        <a href="#0" className="cd-close-form">Close</a>
-                    </div>
-                </div>
             </div>
 
             {/*<div className="slider-area">*/}
@@ -455,110 +328,7 @@ const HomeList = () => {
             {/*    </div>*/}
             {/*</div>*/}
 
-            <div className="category-menu margin-less-top">
-                <div className="container-fluid pd-zero">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="category-menu-content">
-                                <div className="category-title">
-                                    <h3><span>We Provide</span></h3>
-                                </div>
-                                <div className="category-slider bg-white-smoke owl-carousel">
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-one.png" alt=""/>
-                                                <h4>Family House</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-two.png" alt=""/>
-                                                <h4>Apartment</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-three.png"
-                                                             alt="category"/>
-                                                <h4>Sublet</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-four.png"
-                                                             alt="category"/>
-                                                <h4>Bachelor Mess</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-five.png"
-                                                             alt="category"/>
-                                                <h4>Office</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"> <img src="/assets/images/category/category-six.png"
-                                                              alt="category"/>
-                                                <h4>Garage</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-seven.png"
-                                                             alt="category"/>
-                                                <h4>Factory</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-eight.png"
-                                                             alt="category"/>
-                                                <h4>Hall Room</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-nine.png"
-                                                             alt="category"/>
-                                                <h4>Warehouse</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-ten.png"
-                                                             alt="category"/>
-                                                <h4>Female Mess</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"> <img src="/assets/images/category/category-six.png"
-                                                              alt="category"/>
-                                                <h4>Garage</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-five.png"
-                                                             alt="category"/>
-                                                <h4>Office</h4></a>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="category-list style-one">
-                                            <a href="#"><img src="/assets/images/category/category-three.png"
-                                                             alt="category"/>
-                                                <h4>Sublet</h4></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <div className="availability-area bg-white-smoke">
                 <div className="container">
@@ -605,7 +375,8 @@ const HomeList = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" className=" button nevy-button">Check Availability</button>
+                                <button  type="submit" className=" button nevy-button">Check Availability</button>
+                                {user ? ( <Link to={'/posts/create'} className={'button nevy-button'} >Create Post</Link>) : ''}
                             </form>
                         </div>
                     </div>
@@ -1607,4 +1378,4 @@ const HomeList = () => {
     )
 };
 
-export default HomeList;
+export default HomePage;
