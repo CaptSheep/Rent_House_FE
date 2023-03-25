@@ -17,7 +17,6 @@ const homeSlice = createSlice({
 
     extraReducers: builder => {
         builder.addCase(showListHome.fulfilled, (state, action) => {
-            console.log(action)
             state.listHome = [...action.payload]
         })
 
