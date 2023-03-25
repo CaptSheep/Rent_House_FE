@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Link, redirect, useNavigate} from "react-router-dom";
+import {Link, redirect, useNavigate, useParams} from "react-router-dom";
 import {showListHome} from "../service/homeService";
 import {showCategories} from "../service/categoryService";
-import * as url from "url";
 
 
 const ListHome = () => {
+    const {
+        id
+    } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     let dataHome = useSelector((state) => {
@@ -442,15 +444,15 @@ const ListHome = () => {
                                               <div className="col-md-4 col-sm-6 col-xs-6">
                                                   <div className="apartments-content">
                                                       <div className="image-content">
-                                                          <a href="apartment-single.html">
+                                                          <Link to={`/detail/${item.id}`}>
                                                               <img src={item.avatar}
                                                                    alt="apartment"/>
-                                                          </a>
+                                                          </Link>
                                                       </div>
                                                       <div className="text-content">
                                                           <div className="top-content">
                                                               <h3>
-                                                                  <a href="apartment-single.html">{item.name}</a>
+                                                                  <Link to={`/detail/${item.id}`}>{item.name}</Link>
                                                               </h3>
                                                               <span>
                                                        <i className="fa fa-map-marker"></i>
