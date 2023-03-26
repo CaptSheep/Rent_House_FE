@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {createHome, editHome} from "../service/homeService";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
 // import './CSS/style.css'
 import {
     ref, getDownloadURL, uploadBytesResumable
@@ -44,18 +45,37 @@ const {id} = useParams()
     let dataHome = useSelector((state) => {
         return state.post.listHome
     })
-
     useEffect((state) => {
         dispatch(showCategories())
     })
 
 
     const handleSubmit = async (values) => {
-        let avatar = urls[0]
-        let data = {...values, 'avatar': avatar,id:id}
-        console.log(data)
-        await dispatch(editHome(data))
-        // navigate('/home')
+
+        if (dataHome[0].userId === userId) {
+            let avatar = urls[0]
+            let data = {...values, 'avatar': avatar,id:id}
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Updated Home Successfully',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            await dispatch(editHome(data))
+            setTimeout(() => {
+                clearTimeout()
+                navigate(`/listHome`)
+            }, 1500)
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: "Can't edit!",
+                text: 'This is not your home!',
+            })
+        }
+
     }
 
     const handleChange = (e) => {
@@ -240,7 +260,7 @@ const {id} = useParams()
                                         <p className="weather-city">Gyumri</p>
                                     </div>
                                     <div className="text-white mt-5 mb-5">
-                                        <h2 className="create-account mb-3">Create Home</h2>
+                                        <h2 className="create-account mb-3">Update Home</h2>
                                         <p>Enter your personal details and start journey with us.</p>
                                     </div>
                                     <div className="auth-quick-links">

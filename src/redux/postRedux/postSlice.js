@@ -34,6 +34,7 @@ const homeSlice = createSlice({
         })
 
         builder.addCase(editHome.fulfilled, (state, action) => {
+            console.log(action)
             state.detailHome = [...action.payload]
         })
 

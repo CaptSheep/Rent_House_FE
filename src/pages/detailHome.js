@@ -221,7 +221,7 @@ const DetailHome = () => {
                                 <div className="family-apartment-content mobile-extend">
                                     <div className="tb">
                                         <div className="tb-cell">
-                                            <h3 className="apartment-title">Family Apartment</h3>
+                                            <h3 className="apartment-title">{item.name}</h3>
                                         </div>
                                         <div className="tb-cell">
                                             <p className="pull-right rent">Rent/Month: {item.price.toLocaleString()} $</p>
