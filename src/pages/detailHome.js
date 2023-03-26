@@ -12,7 +12,6 @@ const DetailHome = () => {
     let dataHome = useSelector((state) => {
         return state.post.listHome
     })
-    console.log(dataHome)
 
     useEffect(() => {
         dispatch(showListHome())

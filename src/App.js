@@ -8,23 +8,26 @@ import CreatePost from "./pages/createHouse";
 import HomePage from "./pages/home";
 import ListHome from "./pages/listHome";
 import DetailHome from "./pages/detailHome";
+import UpdateHome from "./pages/updateHome";
+
 function App() {
-    let user = useSelector((state)=>{
+    let user = useSelector((state) => {
         return state.user.userNow
     })
-  return (
-      <Routes>
-        <Route path={'/user/login'} element={<Login/>}></Route>
-        <Route  path={'/user/register'} element={<Register/>}></Route>
-          <Route path={'/listHome'} element={<ListHome/>}></Route>
-              <Route path={'/home'} element={<HomePage/>}> </Route>
+    return (
+        <Routes>
+            <Route path={'/user/login'} element={<Login/>}></Route>
+            <Route path={'/user/register'} element={<Register/>}></Route>
+            <Route path={'/listHome'} element={<ListHome/>}></Route>
+            <Route path={'/home'} element={<HomePage/>}> </Route>
+            <Route path={'/posts/create'} element={<CreatePost/>}></Route>
+            <Route path={'/detail/:id'} element={<DetailHome/>}></Route>
+            <Route path={'/update/:id'} element={<UpdateHome/>}></Route>
 
-              <Route path={'/posts/create'} element={<CreatePost/>}>      </Route>
-              <Route path={'/detail/:id'} element={<DetailHome/>}></Route>
+            {/*<Route path={'/user/login'} element={<Login/>}></Route>*/}
 
-           {/*<Route path={'/user/login'} element={<Login/>}></Route>*/}
-
-      </Routes>
-  );
+        </Routes>
+    );
 }
+
 export default App;
