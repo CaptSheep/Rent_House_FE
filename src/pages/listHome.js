@@ -59,9 +59,9 @@ const ListHome = () => {
                                 </div>
                                 <div className="logo-area tb-cell">
                                     <div className="site-logo">
-                                        <a href="index-2.html">
+                                        <Link to={'/home'}>
                                             <img src="assets/images/logo.png" alt="site-logo"/>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="search-block tb-cell">
@@ -82,9 +82,9 @@ const ListHome = () => {
                         <div className="row">
                             <div className="col-md-7 col-sm-7 mobile-center">
                                 <div className="site-logo">
-                                    <a href="index-2.html">
+                                    <Link to={'/home'}>
                                         <img src="assets/images/logo.png" alt="site-logo"/>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="col-md-5 col-sm-5 mobile-center">
