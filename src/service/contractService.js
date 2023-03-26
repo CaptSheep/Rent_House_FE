@@ -11,7 +11,7 @@ export const showContracts = createAsyncThunk(
 )
 
 export const showContractsById = createAsyncThunk(
-    'contract/showContracts',
+    'contract/showContractsById',
     async (id) => {
         let res = await axios.get('http://localhost:8080/contracts/findById' + id)
         return res.data

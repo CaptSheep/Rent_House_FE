@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, redirect, useNavigate, useParams} from "react-router-dom";
 import {showListHome} from "../service/homeService";
 import {showCategories} from "../service/categoryService";
+import {removeAccount} from "../redux/userRedux/userSlice";
 
 
 const ListHome = () => {
@@ -18,7 +19,14 @@ const ListHome = () => {
         dispatch(showListHome())
         dispatch(showCategories())
     }, [])
-
+    let user = useSelector((state) => {
+        return state.user.userNow
+    })
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        dispatch(removeAccount())
+        redirect('/user/login')
+    }
 
     return (
         <>
@@ -93,16 +101,15 @@ const ListHome = () => {
                                         <li>
                                             <a href="#"><i className="fa fa-phone-square"></i>Call Us - 01623 030020</a>
                                         </li>
-                                        <li>
-                                            <a href="#" className="cd-signin"><i className="fa fa-address-book"></i>Login
-                                                / Register</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" className="main-search"><i className="fa fa-search"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" className="trigger-overlay"><i className="fa fa-bars"></i></a>
-                                        </li>
+                                        {user ? (
+                                            <li><Link onClick={() => {
+                                                handleLogout()
+                                            }} to={"/user/login"} className="cd-signin"><i
+                                                className="fa fa-address-book"></i>Logout</Link>
+                                            </li>) : (
+                                            <li><Link to={"/user/login"} className="cd-signin"><i
+                                                className="fa fa-address-book"></i>Login /
+                                                Register</Link></li>)}
                                     </ul>
                                 </div>
                             </div>
