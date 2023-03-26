@@ -440,6 +440,7 @@ const ListHome = () => {
                                     <div role="tabpanel" id="popular-apartment" className="tab-pane fade in active">
                                         <div className="row">
                                             {dataHome.map((item)=>{
+                                                {console.log(item)}
                                               return (<>
                                               <div className="col-md-4 col-sm-6 col-xs-6">
                                                   <div className="apartments-content">
@@ -474,28 +475,9 @@ const ListHome = () => {
                                                               <div className="share-meta dropup pull-right">
                                                                   <ul>
                                                                       <li className="dropup">
-                                                                          <a href="#" className="dropdown-toggle"
-                                                                             data-toggle="dropdown" role="button"
-                                                                             aria-haspopup="true" aria-expanded="false"><i
-                                                                              className="fa fa-share-alt"></i></a>
-                                                                          <ul className="dropdown-menu">
-                                                                              <li>
-                                                                                  <a href="#"><i
-                                                                                      className="fa fa-facebook"></i></a>
-                                                                              </li>
-                                                                              <li>
-                                                                                  <a href="#"><i
-                                                                                      className="fa fa-twitter"></i></a>
-                                                                              </li>
-                                                                              <li>
-                                                                                  <a href="#"><i
-                                                                                      className="fa fa-instagram"></i></a>
-                                                                              </li>
-                                                                              <li>
-                                                                                  <a href="#"><i
-                                                                                      className="fa fa-google-plus"></i></a>
-                                                                              </li>
-                                                                          </ul>
+                                                                          <Link to={`/update/${item.id}`} className="dropdown-toggle"
+                                                                          ><i
+                                                                              className="fa fa-edit"></i></Link>
                                                                       </li>
                                                                       <li>
                                                                           <a href="#"><i className="fa fa-star-o"></i></a>
