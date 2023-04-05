@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, redirect, useNavigate, useParams} from "react-router-dom";
 import {showListHome, showYourHomes} from "../service/homeService";
 import {showCategories} from "../service/categoryService";
+import {removeAccount} from "../redux/userRedux/userSlice";
 
 const DetailHome = () => {
     const dispatch = useDispatch()
@@ -12,6 +13,14 @@ const DetailHome = () => {
     let dataHome = useSelector((state) => {
         return state.post.listHome
     })
+    let user = useSelector((state) => {
+        return state.user.userNow
+    })
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        dispatch(removeAccount())
+        redirect('/user/login')
+    }
 
     useEffect(() => {
         dispatch(showListHome())
@@ -89,16 +98,15 @@ const DetailHome = () => {
                                     <li>
                                         <a href="#"><i className="fa fa-phone-square"></i>Call Us - 01623 030020</a>
                                     </li>
-                                    <li>
-                                        <Link to={'/user/login'} className="cd-signin"><i
-                                            className="fa fa-address-book"></i>Login / Register</Link>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="main-search"><i className="fa fa-search"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="trigger-overlay"><i className="fa fa-bars"></i></a>
-                                    </li>
+                                    {user ? (
+                                        <li><Link onClick={() => {
+                                            handleLogout()
+                                        }} to={"/user/login"} className="cd-signin"><i
+                                            className="fa fa-address-book"></i>Logout</Link>
+                                        </li>) : (
+                                        <li><Link to={"/user/login"} className="cd-signin"><i
+                                            className="fa fa-address-book"></i>Login /
+                                            Register</Link></li>)}
                                 </ul>
                             </div>
                         </div>
@@ -123,7 +131,7 @@ const DetailHome = () => {
                                             <a href="#">House</a>
                                             <ul className="sub-menu">
                                                 <li>
-                                                    <a href="apartment.html">All Apartment</a>
+                                                    <Link to={`/listHome`}>All Apartment</Link>
                                                 </li>
                                                 <li>
                                                     <a href="apartment-single.html">Apartment Single</a>
@@ -254,7 +262,7 @@ const DetailHome = () => {
                                             <li><span>Floor :</span> A5 (5th Floor) (6 storied Building ) (South Facing
                                                 Unit)
                                             </li>
-                                            <li><span>Room Category :</span> 3 Large Bed Rooms with 3 Verandas, Spacious
+                                            <li><span>Room Category :</span> {item.bedroom} Large Bed Rooms with 3 Verandas, Spacious
                                                 Drawing, Dining &amp; Family Living Room, Highly Decorated Kitchen with
                                                 Store
                                                 Room and Servant room with attached Toilet.
@@ -279,7 +287,7 @@ const DetailHome = () => {
                                                 <div className="overview">
                                                     <ul>
                                                         <li>Deposit / Bond <span
-                                                            className="pull-right">$225000.00</span></li>
+                                                            className="pull-right">${item.price}</span></li>
                                                         <li>computer <span className="pull-right">03</span></li>
                                                         <li>Total Area (sq. ft) <span className="pull-right">300</span>
                                                         </li>
@@ -406,166 +414,69 @@ const DetailHome = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-4 col-sm-6 col-xs-6">
-                        <div className="apartments-content">
-                            <div className="image-content">
-                                <a href="#"><img src={"assets/images/apartment/apartment-one.png"} alt="apartment"/></a>
-                            </div>
+                    {dataHome.map((item)=>{
+                        return(<>
+                            <div className="col-md-4 col-sm-6 col-xs-6">
+                                <div className="apartments-content">
+                                    <div className="image-content">
+                                        <Link to={`/detail/${item.id}`}><img src={item.avatar} alt="apartment"/></Link>
+                                    </div>
 
-                            <div className="text-content">
-                                <div className="top-content">
-                                    <h3><a href="#">Family Apartment</a></h3>
-                                    <span><a href="#"><i className="fa fa-map-marker"></i></a> <a href="#">Dhanmondi, Dhaka</a>  </span>
-                                </div>
-                                <div className="bottom-content clearfix">
-                                    <div className="meta-bed-room">
-                                        <i className="fa fa-bed"></i> 3 Bedrooms
-                                    </div>
-                                    <div className="meta-bath-room">
-                                        <i className="fa fa-bath"></i>2 Bathroom
-                                    </div>
-                                    <span className="clearfix"></span>
-                                    <div className="rent-price pull-left">
-                                        $200
-                                    </div>
-                                    <div className="share-meta dropup pull-right">
-                                        <ul>
-                                            <li className="dropup">
-                                                <a href="#" className="dropdown-toggle" data-toggle="dropdown"
-                                                   role="button" aria-haspopup="true" aria-expanded="false"><i
-                                                    className="fa fa-share-alt"></i></a>
-                                                <ul className="dropdown-menu">
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-facebook"></i></a>
+                                    <div className="text-content">
+                                        <div className="top-content">
+                                            <h3><Link to={`/detail/${item.id}`}>{item.name}</Link></h3>
+                                            <span><a href="#"><i className="fa fa-map-marker"></i></a> <a href="#">{item.address}</a>  </span>
+                                        </div>
+                                        <div className="bottom-content clearfix">
+                                            <div className="meta-bed-room">
+                                                <i className="fa fa-bed"></i> {item.bedroom}
+                                            </div>
+                                            <div className="meta-bath-room">
+                                                <i className="fa fa-bath"></i>{item.bathroom}
+                                            </div>
+                                            <span className="clearfix"></span>
+                                            <div className="rent-price pull-left">
+                                                ${item.price.toLocaleString()}
+                                            </div>
+                                            <div className="share-meta dropup pull-right">
+                                                <ul>
+                                                    <li className="dropup">
+                                                        <a href="#" className="dropdown-toggle" data-toggle="dropdown"
+                                                           role="button" aria-haspopup="true" aria-expanded="false"><i
+                                                            className="fa fa-share-alt"></i></a>
+                                                        <ul className="dropdown-menu">
+                                                            <li>
+                                                                <a href="#"><i className="fa fa-facebook"></i></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#"><i className="fa fa-twitter"></i></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#"><i className="fa fa-instagram"></i></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#"><i className="fa fa-google-plus"></i></a>
+                                                            </li>
+                                                        </ul>
                                                     </li>
                                                     <li>
-                                                        <a href="#"><i className="fa fa-twitter"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-instagram"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-google-plus"></i></a>
+                                                        <a href="#"><i className="fa fa-star-o"></i></a>
                                                     </li>
                                                 </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i className="fa fa-star-o"></i></a>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div className="col-md-4 col-sm-6 col-xs-6">
-                        <div className="apartments-content">
-                            <div className="image-content">
-                                <a href="#"><img src="assets/images/apartment/apartment-two.png" alt="apartment"/></a>
-                            </div>
 
-                            <div className="text-content">
-                                <div className="top-content">
-                                    <h3><a href="#">Family Apartment</a></h3>
-                                    <span><a href="#"><i className="fa fa-map-marker"></i></a> <a href="#">Dhanmondi, Dhaka</a>  </span>
-                                </div>
-                                <div className="bottom-content clearfix">
-                                    <div className="meta-bed-room">
-                                        <i className="fa fa-bed"></i> 3 Bedrooms
-                                    </div>
-                                    <div className="meta-bath-room">
-                                        <i className="fa fa-bath"></i>2 Bathroom
-                                    </div>
-                                    <span className="clearfix"></span>
-                                    <div className="rent-price pull-left">
-                                        $200
-                                    </div>
-                                    <div className="share-meta dropup pull-right">
-                                        <ul>
-                                            <li className="dropup">
-                                                <a href="#" className="dropdown-toggle" data-toggle="dropdown"
-                                                   role="button" aria-haspopup="true" aria-expanded="false"><i
-                                                    className="fa fa-share-alt"></i></a>
-                                                <ul className="dropdown-menu">
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-facebook"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-twitter"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-instagram"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-google-plus"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i className="fa fa-star-o"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="clearfix hidden-md hidden-lg"></div>
+                            <div className="clearfix hidden-md hidden-lg"></div>
 
-                    <div className="col-md-4 col-sm-6 col-xs-6">
-                        <div className="apartments-content">
-                            <div className="image-content">
-                                <a href="#"><img src="assets/images/apartment/apartment-three.png" alt="apartment"/></a>
-                            </div>
+                        </>)
+                    })}
 
-                            <div className="text-content">
-                                <div className="top-content">
-                                    <h3><a href="#">Family Apartment</a></h3>
-                                    <span><a href="#"><i className="fa fa-map-marker"></i></a> <a href="#">Dhanmondi, Dhaka</a>  </span>
-                                </div>
-                                <div className="bottom-content clearfix">
-                                    <div className="meta-bed-room">
-                                        <i className="fa fa-bed"></i> 3 Bedrooms
-                                    </div>
-                                    <div className="meta-bath-room">
-                                        <i className="fa fa-bath"></i>2 Bathroom
-                                    </div>
-                                    <span className="clearfix"></span>
-                                    <div className="rent-price pull-left">
-                                        $200
-                                    </div>
-                                    <div className="share-meta dropup pull-right">
-                                        <ul>
-                                            <li className="dropup">
-                                                <a href="#" className="dropdown-toggle" data-toggle="dropdown"
-                                                   role="button" aria-haspopup="true" aria-expanded="false"><i
-                                                    className="fa fa-share-alt"></i></a>
-                                                <ul className="dropdown-menu">
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-facebook"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-twitter"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-instagram"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i className="fa fa-google-plus"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i className="fa fa-star-o"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
