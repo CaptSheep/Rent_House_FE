@@ -24,6 +24,7 @@ const ListHome = () => {
     })
     const handleLogout = () => {
         localStorage.removeItem('token')
+        localStorage.removeItem('user')
         dispatch(removeAccount())
         redirect('/user/login')
     }
